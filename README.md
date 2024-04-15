@@ -1,2 +1,2 @@
-# pakutaberu_game
+# Pakutaberu Game
 Just for fun
