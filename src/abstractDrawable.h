@@ -1,10 +1,10 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
-class drawable {
+class abstractDrawable {
 public:
     virtual void draw() const = 0;
-    virtual ~drawable() {};
+    virtual ~abstractDrawable() {};
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "Game.h"
 #include <ncurses.h>
-#include <unistd.h>
+//#include <unistd.h> //It provides functions related to process control, I/O handling, file manipulation, and other system-level operations
 
 Game::Game(const int w, const int h): width(w), height(h), snake(width / 2, height / 2), fruit(width, height), score(0), gameOver(false) {}
 

@@ -1,7 +1,6 @@
 #include "Fruit.h"
 #include <ncurses.h>
-#include <cstdlib>
-#include <iostream>
+#include <cstdlib> // for random number generation
 
 Fruit::Fruit(const int w, const int h) : x(0), y(0), width(w), height(h) {}
 
