@@ -16,6 +16,6 @@ void Snake::moveUp() { y--; }
 void Snake::moveDown() { y++; }
 
 void Snake::draw() const {
-    mvprintw(y, x, "o"); // Draw the snake at its position
+    printw("o"); // Draw the snake at its position
 }
 

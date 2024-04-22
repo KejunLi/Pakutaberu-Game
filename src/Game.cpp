@@ -26,16 +26,18 @@ void Game::Draw() {
     // Draw the side boundary and pakutaberu and dots
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
+            // Draw the left boundary
             if (j == 0)
                 printw("#");
 
-            if (i == snake.getY() && j == snake.getX())
-                printw("o");
-            else if (i == fruit.getY() && j == fruit.getX())
-                printw("w");
+            if (i == snake.getY() && j == snake.getX()) 
+                snake.draw();
+            else if (i == fruit.getY() && j == fruit.getX()) 
+                fruit.draw();
             else
                 printw(" ");
 
+            // Draw the right boundary
             if (j == width - 1)
                 printw("#");
         }
@@ -56,20 +58,23 @@ void Game::Input() {
     timeout(100); // Set a timeout for getch to prevent blocking
     int ch = getch();
     switch (ch) {
-        case 'a':
+        case 'a': 
             dir = LEFT;
             break;
-        case 'd':
+        case 'd': 
             dir = RIGHT;
             break;
-        case 'w':
+        case 'w': 
             dir = UP;
             break;
-        case 's':
+        case 's': 
             dir = DOWN;
             break;
-        case 'x':
+        case 'x': 
             gameOver = true;
+            break;
+        case 'p':
+            dir = STOP;
             break;
     }
 }

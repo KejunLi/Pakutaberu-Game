@@ -1,6 +1,7 @@
 #include "Fruit.h"
 #include <ncurses.h>
 #include <cstdlib>
+#include <iostream>
 
 Fruit::Fruit(const int w, const int h) : x(0), y(0), width(w), height(h) {}
 
@@ -11,6 +12,6 @@ int Fruit::getX() const { return x; }
 int Fruit::getY() const { return y; }
 
 void Fruit::draw() const {
-    mvprintw(y, x, "F"); // Draw the fruit at its position
+    printw("w"); // Draw the fruit at its position
 }
 
