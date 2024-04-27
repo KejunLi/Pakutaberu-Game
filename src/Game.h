@@ -21,6 +21,7 @@ public:
     void Draw();
     void Input();
     void Logic();
+    int getScore();
     bool isGameOver() const;
     void createFruits(int numFruits);
 };

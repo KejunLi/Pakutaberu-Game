@@ -10,7 +10,13 @@ int main() {
         game.Draw();
         game.Input();
         game.Logic();
-        usleep(100000); // Sleep for 0.1 seconds
+        if (game.getScore() <= 100)
+            usleep(100000); // Sleep for 0.1 seconds
+        else if (game.getScore() > 100 && game.getScore() < 200)
+            usleep(10000); // Increase the speed by sleeping for 0.01 seconds
+        else
+            usleep(2000);
+        
     }
     endwin(); // End ncurses mode
     return 0;

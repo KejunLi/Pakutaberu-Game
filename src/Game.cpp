@@ -141,3 +141,4 @@ void Game::Logic() {
 
 bool Game::isGameOver() const { return gameOver; }
 
+int Game::getScore() { return score; }
