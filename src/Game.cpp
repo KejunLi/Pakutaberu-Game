@@ -2,7 +2,14 @@
 #include <ncurses.h>
 //#include <unistd.h> //It provides functions related to process control, I/O handling, file manipulation, and other system-level operations
 
-Game::Game(const int w, const int h): width(w), height(h), snake(width / 2, height / 2), fruit(width, height), score(0), gameOver(false) {}
+Game::Game(const int w, const int h, const int& nf)
+    : width(w), height(h), snake(width / 2, height / 2), numFruits(nf), score(0), gameOver(false) {
+        for (int i = 0; i < numFruits; i++) {
+            Fruit newFruit(width, height);
+            newFruit.respawn();
+            fruits.push_back(newFruit);
+        }
+}
 
 void Game::Setup() {
     initscr(); // Initialize ncurses
@@ -12,7 +19,17 @@ void Game::Setup() {
     curs_set(0); // Hide cursor
 
     dir = STOP;
-    fruit.respawn();
+}
+
+void Game::createFruits(int numFruits) {
+    //fruits.clear();
+    for (int i = 0; i < numFruits; i++) {
+        Fruit newFruit(width, height);
+        do {
+            newFruit.respawn();
+        } while (newFruit.getX() == snake.getX() && newFruit.getY() == snake.getY());
+        fruits.push_back(newFruit);
+    }
 }
 
 void Game::Draw() {
@@ -32,10 +49,19 @@ void Game::Draw() {
 
             if (i == snake.getY() && j == snake.getX()) 
                 snake.draw();
-            else if (i == fruit.getY() && j == fruit.getX()) 
-                fruit.draw();
-            else
-                printw(" ");
+            else {
+                bool fruitDrawn = false;
+                for (const Fruit& fruit : fruits) {
+                    if (i == fruit.getY() && j == fruit.getX()) {
+                        fruit.draw();
+                        fruitDrawn = true;
+                        break;
+                    }
+                }
+                if (!fruitDrawn) {
+                    printw(" ");
+                }
+            }
 
             // Draw the right boundary
             if (j == width - 1)
@@ -100,9 +126,16 @@ void Game::Logic() {
     if (snake.getX() >= width || snake.getX() < 0 || snake.getY() >= height || snake.getY() < 0)
         gameOver = true;
 
-    if (snake.getX() == fruit.getX() && snake.getY() == fruit.getY()) {
-        score += 10;
-        fruit.respawn();
+    // Check if the snake has eaten any fruits
+    for (auto it = fruits.begin(); it != fruits.end();) {
+        if (snake.getX() == it->getX() && snake.getY() == it->getY()) {
+            score += 10;
+            it = fruits.erase(it);
+            // Optionally, add a new fruit here
+            createFruits(1);
+        } else {
+            ++it;
+        }
     }
 }
 

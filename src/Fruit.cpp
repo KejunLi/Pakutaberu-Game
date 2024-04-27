@@ -2,7 +2,7 @@
 #include <ncurses.h>
 #include <cstdlib> // for random number generation
 
-Fruit::Fruit(const int w, const int h) : x(0), y(0), width(w), height(h) {}
+Fruit::Fruit(int w, int h) : x(0), y(0), width(w), height(h) {}
 
 void Fruit::respawn() { x = rand() % width; y = rand() % height; }
 
@@ -13,4 +13,5 @@ int Fruit::getY() const { return y; }
 void Fruit::draw() const {
     printw("w"); // Draw the fruit at its position
 }
+
 

@@ -1,9 +1,9 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include "abstractDrawable.h"
+#include "abstractDraw.h"
 
-class Snake : public abstractDrawable {
+class Snake : public abstractDraw {
 private:
     int x, y;
 public:

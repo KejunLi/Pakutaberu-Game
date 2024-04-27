@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 int main() {
-    Game game(100, 30);
+    Game game(30, 10, 3);
     game.Setup();
     while (!game.isGameOver()) {
         game.Draw();

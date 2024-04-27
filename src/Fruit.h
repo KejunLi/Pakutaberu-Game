@@ -1,14 +1,14 @@
 #ifndef FRUIT_H
 #define FRUIT_H
 
-#include "abstractDrawable.h"
+#include "abstractDraw.h"
 
-class Fruit: public abstractDrawable {
+class Fruit: public abstractDraw {
 private:
     int x, y;
-    const int width, height;
+    int width, height;
 public:
-    Fruit(const int width, const int height);
+    Fruit(int width, int height);
     void respawn();
     int getX() const;
     int getY() const;
