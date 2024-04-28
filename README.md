@@ -2,7 +2,7 @@
 Just for fun
 
 ## Requirements
-- ncurses.h
+- `ncurses.h`
 - `cstdlib` and `unistd.h` (part of the standard C and POSIX headers and should be available in your development environment.)
 
 ## Installation
