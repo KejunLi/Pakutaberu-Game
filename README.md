@@ -38,8 +38,12 @@ Just for fun
 (`cstdlib` and `unistd.h` are part of the standard C and POSIX headers and should be available in your development environment.)
 
 ### Compiling the Program
-- make
+    ```shell
+    make
+    ```
 
 
 ## Clean Everything
-- make clean
+    ```shell
+    make clean
+    ```
