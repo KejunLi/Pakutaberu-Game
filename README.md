@@ -3,9 +3,7 @@ Just for fun
 
 ## Requirements
 - ncurses.h
-
-* sudo apt update
-* sudo apt install libncurses-dev
+- `cstdlib` and `unistd.h` (part of the standard C and POSIX headers and should be available in your development environment.)
 
 ## Installation
 
@@ -35,7 +33,6 @@ Just for fun
     ```shell
     brew install ncurses
     ```
-(`cstdlib` and `unistd.h` are part of the standard C and POSIX headers and should be available in your development environment.)
 
 3. Compiling the Program
     ```shell
