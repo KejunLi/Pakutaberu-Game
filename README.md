@@ -24,7 +24,7 @@ Just for fun
     ```
 
 ### macOS
-1. Install [Homebrew](https://brew.sh/) if you don't have it installed:
+1. Install [Homebrew](https://brew.sh/):
     ```shell
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
