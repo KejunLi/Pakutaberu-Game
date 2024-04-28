@@ -21,7 +21,7 @@ int main() {
     refresh();
     timeout(-1);
     getch();
-    
+    usleep(2000000); // Sleep for 2 seconds for seeing the information
     endwin(); // End ncurses mode
     return 0;
 }
