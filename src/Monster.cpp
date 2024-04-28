@@ -27,7 +27,7 @@ int Monster::getX() const { return x; }
 
 int Monster::getY() const { return y; }
 
-void Monster::draw() const { printw("@"); }
+void Monster::draw() const { printw("M"); }
 
 void Monster::showoff() { x = rand() % width; y = rand() % height; }
 

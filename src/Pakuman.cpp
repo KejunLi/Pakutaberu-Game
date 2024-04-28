@@ -16,6 +16,6 @@ void Pakuman::moveUp() { y--; }
 void Pakuman::moveDown() { y++; }
 
 void Pakuman::draw() const {
-    printw("o"); // Draw the snake at its position
+    printw("O"); // Draw the snake at its position
 }
 

@@ -11,7 +11,7 @@ int Bean::getX() const { return x; }
 int Bean::getY() const { return y; }
 
 void Bean::draw() const {
-    printw("w"); // Draw the fruit at its position
+    printw("*"); // Draw the fruit at its position
 }
 
 
