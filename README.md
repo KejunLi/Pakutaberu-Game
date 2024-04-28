@@ -44,7 +44,7 @@ Just for fun
 
 
 ## Clean Everything
-This will clean object files and executable
+- This will clean object files and executable
     ```shell
     make clean
     ```
