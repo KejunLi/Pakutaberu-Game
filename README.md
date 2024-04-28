@@ -37,13 +37,14 @@ Just for fun
     ```
 (`cstdlib` and `unistd.h` are part of the standard C and POSIX headers and should be available in your development environment.)
 
-### Compiling the Program
+3. Compiling the Program
     ```shell
     make
     ```
 
 
 ## Clean Everything
+This will clean object files and executable
     ```shell
     make clean
     ```
