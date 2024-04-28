@@ -2,7 +2,7 @@
 #include <ncurses.h>
 #include <cstdlib> // for random number generation
 
-Monster::Monster(int w, int h) : x(rand() % width), y(rand() % height), width(w), height(h) {}
+Monster::Monster(int w, int h) : x(0), y(0), width(w), height(h) {}
 
 void Monster::move() {
     // Randomly change the monster's position

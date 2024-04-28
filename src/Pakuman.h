@@ -3,11 +3,11 @@
 
 #include "abstractDraw.h"
 
-class Snake : public abstractDraw {
+class Pakuman : public abstractDraw {
 private:
     int x, y;
 public:
-    Snake(int startX, int startY);
+    Pakuman(int startX, int startY);
     int getX() const;
     int getY() const;
     void moveLeft();

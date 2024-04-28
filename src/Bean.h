@@ -3,12 +3,12 @@
 
 #include "abstractDraw.h"
 
-class Fruit: public abstractDraw {
+class Bean: public abstractDraw {
 private:
     int x, y;
     int width, height;
 public:
-    Fruit(int width, int height);
+    Bean(int width, int height);
     void respawn();
     int getX() const;
     int getY() const;

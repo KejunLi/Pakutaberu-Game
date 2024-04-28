@@ -3,16 +3,16 @@
 //#include <unistd.h> //It provides functions related to process control, I/O handling, file manipulation, and other system-level operations
 
 Game::Game(const int w, const int h, const int& nf, const int& nm)
-    : width(w), height(h), snake(width / 2, height / 2), numFruits(nf), numMonsters(nm), score(0), gameOver(false) {
-        for (int i = 0; i < numFruits; i++) {
-            Fruit newFruit(width, height);
-            newFruit.respawn();
-            fruits.push_back(newFruit);
+    : width(w), height(h), pakuman(width / 2, height / 2), numBeans(nf), numMonsters(nm), score(0), gameOver(false) {
+        for (int i = 0; i < numBeans; i++) {
+            Bean* newBean = new Bean(width, height);
+            newBean->respawn();
+            drawables.push_back(newBean);
         }
         for (int i = 0; i < numMonsters; i++) {
-            Monster newMonster(width, height);
-            newMonster.showoff();
-            monsters.push_back(newMonster);
+            Monster* newMonster = new Monster(width, height);
+            newMonster->showoff();
+            drawables.push_back(newMonster);
         }
 }
 
@@ -26,14 +26,14 @@ void Game::Setup() {
     dir = STOP;
 }
 
-void Game::createFruits(int numFruits) {
-    //fruits.clear();
-    for (int i = 0; i < numFruits; i++) {
-        Fruit newFruit(width, height);
+void Game::createBeans(int numBeans) {
+    //beans.clear();
+    for (int i = 0; i < numBeans; i++) {
+        Bean* newBean = new Bean(width, height);
         do {
-            newFruit.respawn();
-        } while (newFruit.getX() == snake.getX() && newFruit.getY() == snake.getY());
-        fruits.push_back(newFruit);
+            newBean->respawn();
+        } while (newBean->getX() == pakuman.getX() && newBean->getY() == pakuman.getY());
+        drawables.push_back(newBean);
     }
 }
 
@@ -52,26 +52,18 @@ void Game::Draw() {
             if (j == 0)
                 printw("#");
 
-            if (i == snake.getY() && j == snake.getX()) 
-                snake.draw();
+            if (i == pakuman.getY() && j == pakuman.getX()) 
+                pakuman.draw();
             else {
-                bool fruitDrawn = false;
-                bool monsterDrawn = false;
-                for (const Fruit& fruit : fruits) {
-                    if (i == fruit.getY() && j == fruit.getX()) {
-                        fruit.draw();
-                        fruitDrawn = true;
+                bool Drawn = false;
+                for (abstractDraw* drawable : drawables) {
+                    if (i == drawable->getY() && j == drawable->getX()) {
+                        drawable->draw();
+                        Drawn = true;
                         break;
                     }
                 }
-                for (const Monster& monster : monsters) {
-                    if (i == monster.getY() && j == monster.getX()) {
-                        monster.draw();
-                        monsterDrawn = true;
-                        break;
-                    }
-                }
-                if (!fruitDrawn && !monsterDrawn) {
+                if (!Drawn) {
                     printw(" ");
                 }
             }
@@ -121,45 +113,47 @@ void Game::Input() {
 void Game::Logic() {
     switch (dir) {
         case LEFT:
-            snake.moveLeft();
+            pakuman.moveLeft();
             break;
         case RIGHT:
-            snake.moveRight();
+            pakuman.moveRight();
             break;
         case UP:
-            snake.moveUp();
+            pakuman.moveUp();
             break;
         case DOWN:
-            snake.moveDown();
+            pakuman.moveDown();
             break;
         default:
             break;
     }
 
-    if (snake.getX() >= width || snake.getX() < 0 || snake.getY() >= height || snake.getY() < 0) {
+    if (pakuman.getX() >= width || pakuman.getX() < 0 || pakuman.getY() >= height || pakuman.getY() < 0) {
         printw("Run into a brick wall.\n");
         gameOver = true;
     }
     
 
-    // Check if the snake has eaten any fruits
-    for (auto it = fruits.begin(); it != fruits.end();) {
-        if (snake.getX() == it->getX() && snake.getY() == it->getY()) {
-            score += 10;
-            it = fruits.erase(it);
-            // Create a new fruit here after one is eaten
-            createFruits(1);
-        } else {
-            ++it;
+    // Check if the pakuman has eaten any beans
+    for (std::vector<abstractDraw*>::iterator it = drawables.begin(); it != drawables.end(); it++) {
+        // check if the drawable object is of type Bean or Monster by using dynamic_cast
+        Bean* bean = dynamic_cast<Bean*>(*it);
+        Monster* monster = dynamic_cast<Monster*>(*it);
+        if (bean != nullptr) {
+            if (pakuman.getX() == bean->getX() && pakuman.getY() == bean->getY()) {
+                score += 10;
+                it = drawables.erase(it);
+                // Create a new bean here after one is eaten
+                createBeans(1);
+            } 
         }
-    }
-
-    // monster movement, and gameover if snake touches any monster
-    for (auto i = monsters.begin(); i < monsters.end(); i++) {
-        i->move();
-        if (snake.getX() == i->getX() && snake.getY() == i->getY()) {
-            printw("You have been slain by a monster.\n");
-            gameOver = true;
+        // monster movement, and gameover if pakuman touches any monster
+        else if (monster != nullptr) {
+            monster->move();
+            if (pakuman.getX() == monster->getX() && pakuman.getY() == monster->getY()) {
+                printw("You have been slain by a monster.\n");
+                gameOver = true;
+            } 
         }
     }
 }
@@ -167,3 +161,11 @@ void Game::Logic() {
 bool Game::isGameOver() const { return gameOver; }
 
 int Game::getScore() { return score; }
+
+
+Game::~Game() {
+    for (abstractDraw* drawable : drawables) {
+        delete drawable; // Delete each Drawable object
+    }
+    drawables.clear(); // Clear the vector to remove all pointers
+}

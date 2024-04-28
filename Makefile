@@ -8,14 +8,14 @@ BINDIR = bin
 
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
-EXECUTABLE = $(BINDIR)/snake_game
+EXECUTABLE = $(BINDIR)/pakutaberu_game
 
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS) | $(BINDIR)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/Snake.h $(SRCDIR)/Fruit.h | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/Pakuman.h $(SRCDIR)/Bean.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
