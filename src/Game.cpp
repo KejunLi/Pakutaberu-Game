@@ -2,12 +2,17 @@
 #include <ncurses.h>
 //#include <unistd.h> //It provides functions related to process control, I/O handling, file manipulation, and other system-level operations
 
-Game::Game(const int w, const int h, const int& nf)
-    : width(w), height(h), snake(width / 2, height / 2), numFruits(nf), score(0), gameOver(false) {
+Game::Game(const int w, const int h, const int& nf, const int& nm)
+    : width(w), height(h), snake(width / 2, height / 2), numFruits(nf), numMonsters(nm), score(0), gameOver(false) {
         for (int i = 0; i < numFruits; i++) {
             Fruit newFruit(width, height);
             newFruit.respawn();
             fruits.push_back(newFruit);
+        }
+        for (int i = 0; i < numMonsters; i++) {
+            Monster newMonster(width, height);
+            newMonster.showoff();
+            monsters.push_back(newMonster);
         }
 }
 
@@ -51,6 +56,7 @@ void Game::Draw() {
                 snake.draw();
             else {
                 bool fruitDrawn = false;
+                bool monsterDrawn = false;
                 for (const Fruit& fruit : fruits) {
                     if (i == fruit.getY() && j == fruit.getX()) {
                         fruit.draw();
@@ -58,7 +64,14 @@ void Game::Draw() {
                         break;
                     }
                 }
-                if (!fruitDrawn) {
+                for (const Monster& monster : monsters) {
+                    if (i == monster.getY() && j == monster.getX()) {
+                        monster.draw();
+                        monsterDrawn = true;
+                        break;
+                    }
+                }
+                if (!fruitDrawn && !monsterDrawn) {
                     printw(" ");
                 }
             }
@@ -123,18 +136,30 @@ void Game::Logic() {
             break;
     }
 
-    if (snake.getX() >= width || snake.getX() < 0 || snake.getY() >= height || snake.getY() < 0)
+    if (snake.getX() >= width || snake.getX() < 0 || snake.getY() >= height || snake.getY() < 0) {
+        printw("Run into a brick wall.\n");
         gameOver = true;
+    }
+    
 
     // Check if the snake has eaten any fruits
     for (auto it = fruits.begin(); it != fruits.end();) {
         if (snake.getX() == it->getX() && snake.getY() == it->getY()) {
             score += 10;
             it = fruits.erase(it);
-            // Optionally, add a new fruit here
+            // Create a new fruit here after one is eaten
             createFruits(1);
         } else {
             ++it;
+        }
+    }
+
+    // monster movement, and gameover if snake touches any monster
+    for (auto i = monsters.begin(); i < monsters.end(); i++) {
+        i->move();
+        if (snake.getX() == i->getX() && snake.getY() == i->getY()) {
+            printw("You have been slain by a monster.\n");
+            gameOver = true;
         }
     }
 }
