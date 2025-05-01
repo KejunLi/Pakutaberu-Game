@@ -20,12 +20,14 @@ private:
     eDirection dir;
 
     // Define constants for directions
+    /*
     const char LEFT_KEY = 'a';
     const char RIGHT_KEY = 'd';
     const char UP_KEY = 'w';
     const char DOWN_KEY = 's';
     const char EXIT_KEY = 'x';
     const char PAUSE_KEY = 'p';
+    */
 
 public:
     Game(const int width, const int height, const int& numBeans, const int& numMonsters);

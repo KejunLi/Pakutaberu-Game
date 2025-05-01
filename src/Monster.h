@@ -9,8 +9,8 @@ private:
     int width, height;
 public:
     Monster(int width, int height);
-    int getX() const;
-    int getY() const;
+    int getX() const override;
+    int getY() const override;
     void move();
     void showoff();
     void draw() const override;

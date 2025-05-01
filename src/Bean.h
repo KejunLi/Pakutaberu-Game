@@ -10,8 +10,8 @@ private:
 public:
     Bean(int width, int height);
     void respawn();
-    int getX() const;
-    int getY() const;
+    int getX() const override;
+    int getY() const override;
     void draw() const override;
 };
 

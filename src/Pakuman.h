@@ -8,8 +8,8 @@ private:
     int x, y;
 public:
     Pakuman(int startX, int startY);
-    int getX() const;
-    int getY() const;
+    int getX() const override;
+    int getY() const override;
     void moveLeft();
     void moveRight();
     void moveUp();
